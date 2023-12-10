@@ -30,6 +30,7 @@ button{
 <th>Title</th>
 <th>Description</th>
 <th colspan="3">Actions</th>
+<th>Created By</th>
 </tr>
 </thead>
 <tbody>
@@ -40,6 +41,7 @@ button{
 <td><%= link_to 'Show', article_path(article) %></td>
 <td><%= link_to 'Edit', edit_article_path(article) %></td>
 <td><%= link_to 'Delete', article_path(article), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'  }%></td> 
+<td><%= article.user.username if article.user%></td>
 </tr>
 <% end %>
 </tbody>
