@@ -11,22 +11,55 @@
           <%= link_to "Blogs", articles_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+          <%= link_to "Bloggers", users_path, class: "nav-link" %>
           </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Articles
             </a>
             <ul class="dropdown-menu">
+            <% if logged_in? %>
               <li><%= link_to "Create new article", new_article_path, class: "dropdown-item" %></li>
+            <% end %>
               <li><%= link_to "View articles", articles_path, class: "dropdown-item" %></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+
+
+          <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= current_user.username %>
+          </a>
+          <ul class="dropdown-menu">          
+            <li><%= link_to "View your profile", user_path(current_user), class: "dropdown-item" %></li>
+            <li><%= link_to "Delete profile", user_path(current_user), class: "dropdown-item text-danger",data: {turbo_method: :delete,turbo_confirm: "Delete Account?"}  %> </li>
+            <li><%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <% end %>
+
+
+
+
+
+
+          <% if logged_in? %>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              <%= link_to 'Logout', logout_path, class: "nav-link",  data: {turbo_method: :delete,turbo_confirm: "Confirm Logout?"} %>
+            </li>
+         <% else %>
+          <li class="nav-item">
+            <%= link_to 'Log in', login_path, class: "nav-link" %>
           </li>
+          <li class="nav-item">
+            <%= link_to 'Sign up', signup_path, class: "nav-link" %>
+          </li>
+        <% end %>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
